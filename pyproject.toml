@@ -2,6 +2,7 @@
 name = "compendium-backend"
 authors = ["Yi Cao <me@ycao.top>"]
 readme = "README.md"
+license = "AGPL-3.0-only"
 package-mode = false
 
 [tool.poetry.dependencies]
