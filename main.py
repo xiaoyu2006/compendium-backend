@@ -1,8 +1,9 @@
 import os
 
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, UploadFile, HTTPException
 from dotenv import load_dotenv
 from openai import AsyncOpenAI
+from PIL import UnidentifiedImageError
 
 from helper import process_upload, query_gpt
 
@@ -23,6 +24,9 @@ async def root():
 @app.post("/query/")
 async def query_iamge(file: UploadFile):
     contents = await file.read()
-    img_str = process_upload(contents)
+    try:
+        img_str = process_upload(contents)
+    except UnidentifiedImageError as e:
+        raise HTTPException(status_code=400, detail="Invalid image file") from e
     response = await query_gpt(openai, img_str)
     return {"response": response}
