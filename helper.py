@@ -33,7 +33,7 @@ PROMPT = """In the image:
 1) Detect and classify one of the main objects in the image. If you recognize multiple objects, choose the most prominent one.
 2) Report what you have found in the image using the following JSON format:
 {
-  "name": "Wikipedia entry name. Try to be as specific as possible, e.g. Tesla_Model_Y instead of Car",
+  "name": "English Wikipedia entry name. Try to be as specific as possible, e.g. Tesla_Model_Y instead of Car",
   "x1": "Upper-left bounding box x coordinate",
   "y1": "Upper-left bounding box y coordinate",
   "x2": "Lower-right bounding box x coordinate",
@@ -66,7 +66,7 @@ async def query_gpt(instance: AsyncOpenAI, base64_image: str) -> dict:
 
 def query_claude(instance: Anthropic, base64_image: str) -> dict:
     response = instance.messages.create(
-        model="claude-3-sonnet-20240229",
+        model="claude-3-5-sonnet-20240620",
         max_tokens=64,
         temperature=0.0,
         messages=[
