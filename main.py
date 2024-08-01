@@ -29,4 +29,6 @@ async def query_iamge(file: UploadFile):
     except UnidentifiedImageError as e:
         raise HTTPException(status_code=400, detail="Invalid image file") from e
     response = await query_gpt(openai, img_str)
+    if response == {}:
+        raise HTTPException(status_code=400, detail="No object detected")
     return {"response": response}

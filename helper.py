@@ -32,7 +32,7 @@ PROMPT = """In the image:
 1) Detect and classify one of the main objects in the image. If you recognize multiple objects, choose the most prominent one.
 2) Report what you have found in the image using the following JSON format:
 {
-  "name": "Wikipedia entry name, such as Tesla_Model_Y",
+  "name": "Wikipedia entry name. Try to be as specific as possible, e.g. Tesla_Model_Y instead of Car",
   "x1": "Upper-left bounding box x coordinate",
   "y1": "Upper-left bounding box y coordinate",
   "x2": "Lower-right bounding box x coordinate",
