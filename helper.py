@@ -4,6 +4,7 @@ import json
 
 from fastapi import UploadFile
 from openai import AsyncOpenAI
+from anthropic import Anthropic
 from PIL import Image
 
 
@@ -61,3 +62,31 @@ async def query_gpt(instance: AsyncOpenAI, base64_image: str) -> dict:
     )
     print(response)
     return json.loads(response.choices[0].message.content)
+
+
+def query_claude(instance: Anthropic, base64_image: str) -> dict:
+    response = instance.messages.create(
+        model="claude-3-sonnet-20240229",
+        max_tokens=64,
+        temperature=0.0,
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "image",
+                        "source": {
+                            "type": "base64",
+                            "media_type": "image/jpeg",
+                            "data": base64_image,
+                        },
+                    },
+                    {"type": "text", "text": PROMPT},
+                ],
+            },
+            {"role": "assistant", "content": "Here is the JSON requested:\n{"},
+        ],
+    )
+    print(response)
+    message = response.content[0].text
+    return json.loads("{" + message[:message.rfind("}") + 1])
