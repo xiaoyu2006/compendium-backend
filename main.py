@@ -6,7 +6,7 @@ from openai import AsyncOpenAI
 from anthropic import Anthropic
 from PIL import UnidentifiedImageError
 
-from helper import process_upload, query_gpt, query_claude
+from helper import process_upload, query_gpt, query_claude  # pylint: disable=unused-import
 
 load_dotenv()
 
