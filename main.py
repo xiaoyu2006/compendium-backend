@@ -23,7 +23,7 @@ anthropic = Anthropic(
 
 @app.get("/")
 async def root():
-    return {"health": "ok", "version": "0"}
+    return {"health": "ok", "version": "1"}
 
 
 @app.post("/query/")
