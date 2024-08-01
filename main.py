@@ -23,7 +23,7 @@ anthropic = Anthropic(
 
 @app.get("/")
 async def root():
-    return {"health": "ok", "version": "1"}
+    return {"health": "ok", "version": "2"}
 
 
 @app.post("/query/")
@@ -37,4 +37,7 @@ async def query_iamge(file: UploadFile):
     response = query_claude(anthropic, img_str)
     if response == {}:
         raise HTTPException(status_code=400, detail="No object detected")
+    # response may contain string as float
+    for key in ("x1", "y1", "x2", "y2"):
+        response[key] = float(response[key])
     return {"response": response}
